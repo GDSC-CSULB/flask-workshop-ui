@@ -1,4 +1,4 @@
-fetch("https://api.kanye.rest/")
+fetch("http://127.0.0.1:5000/courses")
   .then((response) => response.json())
   .then((data) => {
     console.log(data);
@@ -7,8 +7,16 @@ fetch("https://api.kanye.rest/")
   .catch((error) => console.error(error));
 
 displayResponse = (res) => {
-  const responseDiv = document.querySelector("#response-div");
-  const textElement = document.createElement("p");
-  textElement.innerText = `${res.quote}\n- Kanye Rest`;
-  responseDiv.append(textElement);
+  const courseDiv = document.querySelector("#courses");
+
+  res.forEach(course => {
+    const courseElement = document.createElement('li');
+    courseElement.innerText= `${course.department} ${course.number} - ${course.name} (${course.units} units)`
+
+    if (course.desc) {
+      courseElement.innerText = courseElement.innerText + `\n${course.desc}`
+    }
+
+    courseDiv.append(courseElement);
+  });
 };
